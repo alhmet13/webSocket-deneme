@@ -12,8 +12,7 @@
     "skipLibCheck": true,
     "typeRoots": ["./node_modules/@types", "./src/types"],
     "lib": ["ES2020", "DOM", "ESNext", "DOM.Iterable"],
-    "moduleResolution": "node10",
-    "ignoreDeprecations": "6.0"
+    "moduleResolution": "bundler"
   },
   "exclude": [
     "node_modules",
@@ -21,6 +20,9 @@
     "prisma.config.ts"
   ],
   "ts-node": {
-    "files": true
+    "files": true,
+    "compilerOptions": {
+      "moduleResolution": "node"
+    }
   }
 }
