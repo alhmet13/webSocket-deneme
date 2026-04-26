@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "sourceRoot": "./src",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "rootDir": "src",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "typeRoots": ["./node_modules/@types", "./src/types"],
+    "lib": ["ES2020", "DOM", "ESNext", "DOM.Iterable"],
+    "moduleResolution": "node10",
+    "ignoreDeprecations": "6.0"
+  },
+  "exclude": [
+    "node_modules",
+    "dist",
+    "prisma.config.ts"
+  ],
+  "ts-node": {
+    "files": true
+  }
+}
