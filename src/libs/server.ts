@@ -3,8 +3,11 @@ import cors from '@fastify/cors';
 import cookie from '@fastify/cookie';
 import formBody from '@fastify/formbody';
 import helmet from '@fastify/helmet';
+import websocket from '@fastify/websocket';
 import { logger } from '../libs';
 import { API_ROUTES, API_VERSION, HTTP_STATUS_CODE } from '../helpers';
+import { deviceSimulation } from '../workers';
+import deviceSocket from '../sockets/device.socket';
 //import { authRoutes, generalRoutes, notesRoutes, tagRoutes, todosRoutes } from '../routes';
 
 const { PORT, NODE_ENV } = process.env;
@@ -31,6 +34,10 @@ const server = async () => {
     parseOptions: {},
   });
   app.register(formBody);
+
+  await app.register(websocket);
+
+  await app.register(deviceSocket);
 
   // Root route
   app.get('/', async (_req, reply) => {
@@ -63,6 +70,11 @@ const server = async () => {
 
   await app.listen({ port: parseInt(PORT || '8080', 10), host: '0.0.0.0' });
   logger.info(`[FASTIFY APP] Server listening on port ${PORT}`);
+
+  deviceSimulation((newRecord) => {
+    app.broadcastDeviceData(newRecord);
+    logger.info(`[WORKER -> SOCKET] Veri başarıyla yayınlandı. Sensör adı: ${newRecord.deviceName}, temperature: ${newRecord.temperature}`);
+  });
 
   return app;
 };

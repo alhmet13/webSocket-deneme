@@ -11,4 +11,8 @@ declare module 'fastify' {
   interface FastifyRequest {
     user?: DecodedUser;
   }
+
+  interface FastifyInstance {
+    broadcastDeviceData: (data: any) => void;
+  }
 }

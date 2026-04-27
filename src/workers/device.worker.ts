@@ -2,10 +2,10 @@ import { randomTemperature } from '../helpers';
 import { createDevice } from '../services';
 import { deviceSchema } from '../schemas';
 
-const deviceSimulation = () => {
+const deviceSimulation = (onData: (record: any) => void) => {
   try {
     setInterval(async () => {
-      const temp = randomTemperature();
+      const { temperature: temp } = randomTemperature();
 
       const rawData = {
         deviceName: 'DVC-001',
@@ -16,7 +16,7 @@ const deviceSimulation = () => {
 
       const newRecord = await createDevice(validatedData);
 
-      return newRecord;
+      onData(newRecord);
     }, 10000);
   } catch (error) {
     throw error;
