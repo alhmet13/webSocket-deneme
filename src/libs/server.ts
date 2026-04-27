@@ -73,7 +73,7 @@ const server = async () => {
 
   deviceSimulation((newRecord) => {
     app.broadcastDeviceData(newRecord);
-    logger.info(`[WORKER -> SOCKET] Veri başarıyla yayınlandı. Sensör adı: ${newRecord.deviceName}, temperature: ${newRecord.temperature}`);
+    logger.info(`[WORKER -> SOCKET] Veri basariyla yayinlandi. Sensor adi: ${newRecord.deviceName}, temperature: ${newRecord.temperature}`);
   });
 
   return app;
