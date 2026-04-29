@@ -2,7 +2,7 @@ import { prisma } from '../libs';
 
 interface IDeviceData {
   deviceName: string;
-  light: boolean;
+  deviceType: string;
 }
 
 const createDevice = async (data: IDeviceData) => {

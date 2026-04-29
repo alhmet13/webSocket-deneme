@@ -8,7 +8,7 @@ import { logger } from '../libs';
 import { API_ROUTES, API_VERSION, HTTP_STATUS_CODE } from '../helpers';
 import deviceSocket from '../sockets/device.socket';
 import { initArduinoListener } from '../listeners/arduino.listener';
-//import { authRoutes, generalRoutes, notesRoutes, tagRoutes, todosRoutes } from '../routes';
+import { authRoutes, deviceRoutes } from '../routes';
 
 const { PORT, NODE_ENV } = process.env;
 
@@ -45,11 +45,8 @@ const server = async () => {
   });
 
   // Routes with prefix
-  /*app.register(generalRoutes, { prefix: `${API_VERSION.V1}${API_ROUTES.GENERAL}` });
   app.register(authRoutes, { prefix: `${API_VERSION.V1}${API_ROUTES.AUTH}` });
-  app.register(todosRoutes, { prefix: `${API_VERSION.V1}${API_ROUTES.TODOS}` });
-  app.register(notesRoutes, { prefix: `${API_VERSION.V1}${API_ROUTES.NOTES}` });
-  app.register(tagRoutes, { prefix: `${API_VERSION.V1}${API_ROUTES.TAG}` });*/
+  app.register(deviceRoutes, { prefix: `${API_VERSION.V1}${API_ROUTES.DEVICE}` });
 
   // 404 handler
   app.setNotFoundHandler((_req, reply) => {

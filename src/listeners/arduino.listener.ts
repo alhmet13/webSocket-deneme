@@ -15,7 +15,8 @@ const initArduinoListener = (OnRecordCreated: OnRecordCreated) => {
 
     if (cleanData.length > 0) {
       try {
-        await createDevice({ deviceName: 'led-001', light: cleanData === 'led yandi' });
+        /*const newRecord = await createDevice({ deviceName: 'led-001', light: cleanData === 'led yandi' });
+        OnRecordCreated(newRecord);*/
       } catch (err) {
         throw err;
       }
