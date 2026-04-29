@@ -8,9 +8,9 @@ datasource db {
 }
 
 model device {
-  id          Int      @id @default(autoincrement())
-  uuid        String   @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  temperature Int
-  deviceName  String
-  createdAt   DateTime @default(now())
+  id         Int      @id @default(autoincrement())
+  uuid       String   @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  light      Boolean
+  deviceName String
+  createdAt  DateTime @default(now())
 }

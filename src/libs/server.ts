@@ -6,8 +6,8 @@ import helmet from '@fastify/helmet';
 import websocket from '@fastify/websocket';
 import { logger } from '../libs';
 import { API_ROUTES, API_VERSION, HTTP_STATUS_CODE } from '../helpers';
-import { deviceSimulation } from '../workers';
 import deviceSocket from '../sockets/device.socket';
+import { initArduinoListener } from '../listeners/arduino.listener';
 //import { authRoutes, generalRoutes, notesRoutes, tagRoutes, todosRoutes } from '../routes';
 
 const { PORT, NODE_ENV } = process.env;
@@ -71,9 +71,10 @@ const server = async () => {
   await app.listen({ port: parseInt(PORT || '8080', 10), host: '0.0.0.0' });
   logger.info(`[FASTIFY APP] Server listening on port ${PORT}`);
 
-  deviceSimulation((newRecord) => {
+  initArduinoListener((newRecord) => {
     app.broadcastDeviceData(newRecord);
-    logger.info(`[WORKER -> SOCKET] Veri basariyla yayinlandi. Sensor adi: ${newRecord.deviceName}, temperature: ${newRecord.temperature}`);
+
+    logger.info(`[ARDUINO -> SOCKET] Veri basariyla yayinlandi. Cihaz: ${newRecord.deviceName}, Isik durumu: ${newRecord.light}`);
   });
 
   return app;

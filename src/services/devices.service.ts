@@ -2,7 +2,7 @@ import { prisma } from '../libs';
 
 interface IDeviceData {
   deviceName: string;
-  temperature: number;
+  light: boolean;
 }
 
 const createDevice = async (data: IDeviceData) => {
