@@ -10,4 +10,9 @@ const createUser = async (data: IUserData) => {
   return user;
 };
 
-export { createUser };
+const findUserByRfid_ID = async (rfid_ID: string) => {
+  const user = await prisma.user.findUnique({ where: { rfid_ID } });
+  return user;
+};
+
+export { createUser, findUserByRfid_ID };

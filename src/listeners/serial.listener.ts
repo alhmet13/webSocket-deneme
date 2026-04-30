@@ -1,5 +1,5 @@
 import { SerialPort, ReadlineParser } from 'serialport';
-import { createDevice } from '../services';
+import { handleAccessRequest } from '../managers';
 
 type OnRecordCreated = (newRecord: any) => void;
 
@@ -15,8 +15,8 @@ const initArduinoListener = (OnRecordCreated: OnRecordCreated) => {
 
     if (cleanData.length > 0) {
       try {
-        /*const newRecord = await createDevice({ deviceName: 'led-001', light: cleanData === 'led yandi' });
-        OnRecordCreated(newRecord);*/
+        const rfidId = data.replace('RFID_DATA:', '').trim();
+        handleAccessRequest(rfidId, port);
       } catch (err) {
         throw err;
       }

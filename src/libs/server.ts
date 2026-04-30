@@ -7,7 +7,7 @@ import websocket from '@fastify/websocket';
 import { logger } from '../libs';
 import { API_ROUTES, API_VERSION, HTTP_STATUS_CODE } from '../helpers';
 import deviceSocket from '../sockets/device.socket';
-import { initArduinoListener } from '../listeners/arduino.listener';
+import { initArduinoListener } from '../listeners/serial.listener';
 import { authRoutes, deviceRoutes } from '../routes';
 
 const { PORT, NODE_ENV } = process.env;

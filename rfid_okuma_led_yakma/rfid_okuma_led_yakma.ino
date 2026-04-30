@@ -18,9 +18,6 @@ void setup() {
   
   pinMode(LED_PIN, OUTPUT);
   digitalWrite(LED_PIN, LOW); // Başlangıçta LED kapalı
-  
-  // Seri port üzerinden sistemin hazır olduğunu bildiriyoruz
-  Serial.println("SYSTEM_READY");
 }
 
 void loop() {
@@ -46,20 +43,18 @@ void loop() {
   // Backend'in kolayca parse edebileceği bir formatta gönderiyoruz
   Serial.print("RFID_DATA:");
   Serial.println(content);
-
-  // Görsel geri bildirim (Kart okundu sinyali)
-  // Not: Yetki kontrolü backend'de olacağı için bu sadece "okuma" onayıdır
-  blinkLed(1); 
-
-  // Aynı kartın ardı ardına binlerce kez okunmasını engellemek için kısa bir bekleme
   delay(1000);
-}
 
-void blinkLed(int times) {
-  for(int i = 0; i < times; i++) {
-    digitalWrite(LED_PIN, HIGH);
-    delay(500);
-    digitalWrite(LED_PIN, LOW);
-    delay(500);
+  // 2. BACKEND'DEN EMİR BEKLEME KISMI (Yeni Ekliyoruz)
+  if (Serial.available() > 0) {
+    char command = Serial.read(); // Backend'den gelen tek karakteri oku
+    if (command == '1') {         // Eğer '1' gelirse
+      digitalWrite(LED_PIN, HIGH);
+      delay(2000);                // 2 saniye yak
+      digitalWrite(LED_PIN, LOW);
+    } 
+    else if (command == '0') {    // Eğer '0' gelirse (Opsiyonel: Hata sinyali)
+      // Belki LED'i hızlı hızlı yakıp söndürürsün (Hata mesajı gibi)
+    }
   }
 }
