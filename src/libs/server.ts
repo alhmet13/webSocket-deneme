@@ -71,7 +71,7 @@ const server = async () => {
   initArduinoListener((newRecord) => {
     app.broadcastDeviceData(newRecord);
 
-    logger.info(`[ARDUINO -> SOCKET] Veri basariyla yayinlandi. Cihaz: ${newRecord.deviceName}, Isik durumu: ${newRecord.light}`);
+    logger.info(`[BROADCAST] Gecis yapildi`);
   });
 
   return app;

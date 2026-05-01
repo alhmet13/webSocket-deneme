@@ -124,6 +124,8 @@ exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   uuid: 'uuid',
   name: 'name',
+  email: 'email',
+  password: 'password',
   rfid_ID: 'rfid_ID',
   createdAt: 'createdAt'
 };

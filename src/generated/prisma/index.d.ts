@@ -1133,6 +1133,8 @@ export namespace Prisma {
     id: number | null
     uuid: string | null
     name: string | null
+    email: string | null
+    password: string | null
     rfid_ID: string | null
     createdAt: Date | null
   }
@@ -1141,6 +1143,8 @@ export namespace Prisma {
     id: number | null
     uuid: string | null
     name: string | null
+    email: string | null
+    password: string | null
     rfid_ID: string | null
     createdAt: Date | null
   }
@@ -1149,6 +1153,8 @@ export namespace Prisma {
     id: number
     uuid: number
     name: number
+    email: number
+    password: number
     rfid_ID: number
     createdAt: number
     _all: number
@@ -1167,6 +1173,8 @@ export namespace Prisma {
     id?: true
     uuid?: true
     name?: true
+    email?: true
+    password?: true
     rfid_ID?: true
     createdAt?: true
   }
@@ -1175,6 +1183,8 @@ export namespace Prisma {
     id?: true
     uuid?: true
     name?: true
+    email?: true
+    password?: true
     rfid_ID?: true
     createdAt?: true
   }
@@ -1183,6 +1193,8 @@ export namespace Prisma {
     id?: true
     uuid?: true
     name?: true
+    email?: true
+    password?: true
     rfid_ID?: true
     createdAt?: true
     _all?: true
@@ -1278,6 +1290,8 @@ export namespace Prisma {
     id: number
     uuid: string
     name: string
+    email: string
+    password: string
     rfid_ID: string
     createdAt: Date
     _count: UserCountAggregateOutputType | null
@@ -1305,6 +1319,8 @@ export namespace Prisma {
     id?: boolean
     uuid?: boolean
     name?: boolean
+    email?: boolean
+    password?: boolean
     rfid_ID?: boolean
     createdAt?: boolean
     logs?: boolean | User$logsArgs<ExtArgs>
@@ -1315,6 +1331,8 @@ export namespace Prisma {
     id?: boolean
     uuid?: boolean
     name?: boolean
+    email?: boolean
+    password?: boolean
     rfid_ID?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1323,6 +1341,8 @@ export namespace Prisma {
     id?: boolean
     uuid?: boolean
     name?: boolean
+    email?: boolean
+    password?: boolean
     rfid_ID?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1331,11 +1351,13 @@ export namespace Prisma {
     id?: boolean
     uuid?: boolean
     name?: boolean
+    email?: boolean
+    password?: boolean
     rfid_ID?: boolean
     createdAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "uuid" | "name" | "rfid_ID" | "createdAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "uuid" | "name" | "email" | "password" | "rfid_ID" | "createdAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     logs?: boolean | User$logsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -1352,6 +1374,8 @@ export namespace Prisma {
       id: number
       uuid: string
       name: string
+      email: string
+      password: string
       rfid_ID: string
       createdAt: Date
     }, ExtArgs["result"]["user"]>
@@ -1781,6 +1805,8 @@ export namespace Prisma {
     readonly id: FieldRef<"User", 'Int'>
     readonly uuid: FieldRef<"User", 'String'>
     readonly name: FieldRef<"User", 'String'>
+    readonly email: FieldRef<"User", 'String'>
+    readonly password: FieldRef<"User", 'String'>
     readonly rfid_ID: FieldRef<"User", 'String'>
     readonly createdAt: FieldRef<"User", 'DateTime'>
   }
@@ -4458,6 +4484,8 @@ export namespace Prisma {
     id: 'id',
     uuid: 'uuid',
     name: 'name',
+    email: 'email',
+    password: 'password',
     rfid_ID: 'rfid_ID',
     createdAt: 'createdAt'
   };
@@ -4574,6 +4602,8 @@ export namespace Prisma {
     id?: IntFilter<"User"> | number
     uuid?: UuidFilter<"User"> | string
     name?: StringFilter<"User"> | string
+    email?: StringFilter<"User"> | string
+    password?: StringFilter<"User"> | string
     rfid_ID?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     logs?: LogsListRelationFilter
@@ -4583,6 +4613,8 @@ export namespace Prisma {
     id?: SortOrder
     uuid?: SortOrder
     name?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
     rfid_ID?: SortOrder
     createdAt?: SortOrder
     logs?: LogsOrderByRelationAggregateInput
@@ -4591,19 +4623,23 @@ export namespace Prisma {
   export type UserWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     uuid?: string
+    email?: string
     rfid_ID?: string
     AND?: UserWhereInput | UserWhereInput[]
     OR?: UserWhereInput[]
     NOT?: UserWhereInput | UserWhereInput[]
     name?: StringFilter<"User"> | string
+    password?: StringFilter<"User"> | string
     createdAt?: DateTimeFilter<"User"> | Date | string
     logs?: LogsListRelationFilter
-  }, "id" | "uuid" | "rfid_ID">
+  }, "id" | "uuid" | "email" | "rfid_ID">
 
   export type UserOrderByWithAggregationInput = {
     id?: SortOrder
     uuid?: SortOrder
     name?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
     rfid_ID?: SortOrder
     createdAt?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -4620,6 +4656,8 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"User"> | number
     uuid?: UuidWithAggregatesFilter<"User"> | string
     name?: StringWithAggregatesFilter<"User"> | string
+    email?: StringWithAggregatesFilter<"User"> | string
+    password?: StringWithAggregatesFilter<"User"> | string
     rfid_ID?: StringWithAggregatesFilter<"User"> | string
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -4744,6 +4782,8 @@ export namespace Prisma {
   export type UserCreateInput = {
     uuid?: string
     name: string
+    email: string
+    password: string
     rfid_ID: string
     createdAt?: Date | string
     logs?: LogsCreateNestedManyWithoutUserInput
@@ -4753,6 +4793,8 @@ export namespace Prisma {
     id?: number
     uuid?: string
     name: string
+    email: string
+    password: string
     rfid_ID: string
     createdAt?: Date | string
     logs?: LogsUncheckedCreateNestedManyWithoutUserInput
@@ -4761,6 +4803,8 @@ export namespace Prisma {
   export type UserUpdateInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     rfid_ID?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logs?: LogsUpdateManyWithoutUserNestedInput
@@ -4770,6 +4814,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     uuid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     rfid_ID?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logs?: LogsUncheckedUpdateManyWithoutUserNestedInput
@@ -4779,6 +4825,8 @@ export namespace Prisma {
     id?: number
     uuid?: string
     name: string
+    email: string
+    password: string
     rfid_ID: string
     createdAt?: Date | string
   }
@@ -4786,6 +4834,8 @@ export namespace Prisma {
   export type UserUpdateManyMutationInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     rfid_ID?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4794,6 +4844,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     uuid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     rfid_ID?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -4969,6 +5021,8 @@ export namespace Prisma {
     id?: SortOrder
     uuid?: SortOrder
     name?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
     rfid_ID?: SortOrder
     createdAt?: SortOrder
   }
@@ -4981,6 +5035,8 @@ export namespace Prisma {
     id?: SortOrder
     uuid?: SortOrder
     name?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
     rfid_ID?: SortOrder
     createdAt?: SortOrder
   }
@@ -4989,6 +5045,8 @@ export namespace Prisma {
     id?: SortOrder
     uuid?: SortOrder
     name?: SortOrder
+    email?: SortOrder
+    password?: SortOrder
     rfid_ID?: SortOrder
     createdAt?: SortOrder
   }
@@ -5477,6 +5535,8 @@ export namespace Prisma {
   export type UserCreateWithoutLogsInput = {
     uuid?: string
     name: string
+    email: string
+    password: string
     rfid_ID: string
     createdAt?: Date | string
   }
@@ -5485,6 +5545,8 @@ export namespace Prisma {
     id?: number
     uuid?: string
     name: string
+    email: string
+    password: string
     rfid_ID: string
     createdAt?: Date | string
   }
@@ -5528,6 +5590,8 @@ export namespace Prisma {
   export type UserUpdateWithoutLogsInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     rfid_ID?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -5536,6 +5600,8 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     uuid?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
     rfid_ID?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

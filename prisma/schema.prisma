@@ -10,7 +10,9 @@ datasource db {
 model User {
   id        Int      @id @default(autoincrement())
   uuid      String   @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name      String
+  name      String   @db.VarChar(250)
+  email     String   @unique
+  password  String   @db.VarChar(250)
   rfid_ID   String   @unique
   createdAt DateTime @default(now())
   logs      Logs[]
