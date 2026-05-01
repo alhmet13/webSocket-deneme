@@ -18,11 +18,15 @@ const handleAccessRequest = async (rfid_ID: string) => {
   const user = await findUserByRfid_ID(rfid_ID);
 
   if (user) {
-    triggerLed('1'); // Paylaşımlı fonksiyonu kullan
+    triggerLed('1');
     console.log(`${user.name} için izin verildi.`);
+    // WebSocket'e gidecek paketi dönüyoruz
+    return { status: 'authorized', name: user.name, rfid_ID, time: new Date() };
   } else {
     triggerLed('0');
     console.log('Yetkisiz kart: ' + rfid_ID);
+    // Yetkisiz deneme paketini dönüyoruz
+    return { status: 'unauthorized', name: 'Bilinmeyen', rfid_ID, time: new Date() };
   }
 };
 

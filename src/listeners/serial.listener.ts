@@ -11,7 +11,9 @@ const initArduinoListener = (onRecordCreated: OnRecordCreated) => {
     if (cleanData.length > 0) {
       try {
         const rfidId = cleanData.replace('RFID_DATA:', '').trim();
-        handleAccessRequest(rfidId);
+
+        const result = await handleAccessRequest(rfidId); //!resulta alıyoruz veriyi
+        onRecordCreated(result); //*ve onRecordCreated callback fonksiyonu ile yayın işini server.ts e paslıyoruz.
       } catch (err) {
         console.error('Listener Hatası:', err);
       }

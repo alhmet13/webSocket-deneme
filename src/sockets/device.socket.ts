@@ -16,6 +16,7 @@ async function deviceSocket(fastify: FastifyInstance) {
 
   fastify.get('/ws', { websocket: true }, (socket: WebSocket, req: FastifyRequest) => {
     fastify.log.info('Yeni bir istemci bağlandı!');
+    socket.send(JSON.stringify({ message: 'Bağlantı başarılı, veri bekleniyor...' })); //veri denemesi
 
     socket.on('close', () => {
       fastify.log.info('İstemci ayrıldı.');
