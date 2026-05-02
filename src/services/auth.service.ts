@@ -18,9 +18,14 @@ const findUser = async (email: string) => {
   return user;
 };
 
+const findUserById = async (userId: number) => {
+  const user = prisma.user.findUnique({ where: { id: userId }, select: { id: true, uuid: true, name: true, email: true } });
+  return user;
+};
+
 const findUserByRfid_ID = async (rfid_ID: string) => {
   const user = await prisma.user.findUnique({ where: { rfid_ID } });
   return user;
 };
 
-export { createUser, findUser, findUserByRfid_ID };
+export { createUser, findUser, findUserById, findUserByRfid_ID };

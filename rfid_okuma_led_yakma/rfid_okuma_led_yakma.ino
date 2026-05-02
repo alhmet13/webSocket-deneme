@@ -24,31 +24,35 @@ void setup()
 
 void loop()
 {
+  // 1. ADIM: Backend'den gelen komutları kontrol et (Öncelikli)
   if (Serial.available() > 0)
   {
-    char command = Serial.read(); // Backend'den gelen tek karakteri oku
-    if (command == '1')
-    { // Eğer '1' gelirse
-      digitalWrite(LED_PIN, HIGH);
-      delay(2000); // 2 saniye yak
-      digitalWrite(LED_PIN, LOW);
-    }
-    else if (command == '0')
-    { // Eğer '0' gelirse (Opsiyonel: Hata sinyali)
-      // Belki LED'i hızlı hızlı yakıp söndürürsün (Hata mesajı gibi)
+    // Backend'den "LED-001:on\n" formatında veri bekliyoruz
+    String rawData = Serial.readStringUntil('\n'); 
+    rawData.trim(); // Boşlukları temizle
+
+    int separatorIndex = rawData.indexOf(':');
+    if (separatorIndex != -1) {
+      String deviceName = rawData.substring(0, separatorIndex);
+      String command = rawData.substring(separatorIndex + 1);
+
+      // Sadece bu cihaza ait komutları işle
+      if (deviceName == "LED-001") {
+        if (command == "on") {
+          digitalWrite(LED_PIN, HIGH);
+          delay(2000); 
+          digitalWrite(LED_PIN, LOW);
+        } else if (command == "off") {
+          digitalWrite(LED_PIN, LOW);
+        }
+      }
     }
   }
 
-  if (!mfrc522.PICC_IsNewCardPresent())
-  {
-    return;
-  }
-
-  // Kart verisi okunamazsa devam et
-  if (!mfrc522.PICC_ReadCardSerial())
-  {
-    return;
-  }
+  // 2. ADIM: RFID Okuma (Sadece kart varsa)
+  // Yeni bir kart okutulmadıysa veya okunmadıysa loop'un başına dön
+  if ( ! mfrc522.PICC_IsNewCardPresent()) return;
+  if ( ! mfrc522.PICC_ReadCardSerial()) return;
 
   String content = "";
   for (byte i = 0; i < mfrc522.uid.size; i++)
@@ -59,9 +63,12 @@ void loop()
 
   content.toUpperCase();
 
+  // Backend'e temiz veri gönder
   Serial.print("RFID_DATA:");
   Serial.println(content);
-  delay(1000);
+  
+  // Aynı kartın defalarca okunmasını engellemek için kısa bir bekleme
+  delay(500); 
 }
 
 /*

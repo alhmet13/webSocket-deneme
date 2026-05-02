@@ -1,8 +1,11 @@
+import { DeviceTypes, LedValue } from '../generated/prisma';
 import { prisma } from '../libs';
 
 interface IDeviceData {
   deviceName: string;
-  deviceType: string;
+  deviceType: DeviceTypes;
+  light?: LedValue;
+  temperature?: number;
 }
 
 const createDevice = async (data: IDeviceData) => {
@@ -10,4 +13,9 @@ const createDevice = async (data: IDeviceData) => {
   return device;
 };
 
-export { createDevice };
+const findDevice = async (deviceName: string) => {
+  const device = await prisma.device.findUnique({ where: { deviceName } });
+  return device;
+};
+
+export { createDevice, findDevice };

@@ -2,7 +2,6 @@ import { FastifyRequest, FastifyReply } from 'fastify';
 import { HTTP_STATUS_CODE, hashPassword, signJwt, accessTokenCookieOptions, refreshTokenCookieOptions, verifyPassword, verifyJwt } from '../helpers';
 import { createUser, findUser } from '../services';
 import { signUpSchema, SignUpInput, signInSchema, SignInInput } from '../schemas';
-import { triggerLed } from '../managers';
 
 const signUpHandler = async (request: FastifyRequest<{ Body: SignUpInput }>, reply: FastifyReply) => {
   const { name, email, password, rfid_ID } = signUpSchema.parse(request.body);
@@ -35,8 +34,6 @@ const signInHandler = async (request: FastifyRequest<{ Body: SignInInput }>, rep
 
     reply.cookie('access_token', accessToken, accessTokenCookieOptions);
     reply.cookie('refresh_token', refreshToken, refreshTokenCookieOptions);
-
-    await triggerLed('1');
 
     return reply.status(HTTP_STATUS_CODE.OK).send({ message: 'OK' });
   } catch (error) {

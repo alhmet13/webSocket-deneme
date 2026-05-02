@@ -7,6 +7,16 @@ datasource db {
   provider = "postgresql"
 }
 
+enum DeviceTypes {
+  LED
+  Temperature
+}
+
+enum LedValue {
+  on
+  off
+}
+
 model User {
   id        Int      @id @default(autoincrement())
   uuid      String   @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
@@ -19,12 +29,14 @@ model User {
 }
 
 model Device {
-  id         Int      @id @default(autoincrement())
-  uuid       String   @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  deviceName String
-  deviceType String
-  createdAt  DateTime @default(now())
-  logs       Logs[]
+  id          Int         @id @default(autoincrement())
+  uuid        String      @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  deviceName  String      @unique
+  deviceType  DeviceTypes
+  light       LedValue?
+  temperature Float?
+  createdAt   DateTime    @default(now())
+  logs        Logs[]
 }
 
 model Logs {
@@ -32,6 +44,7 @@ model Logs {
   uuid      String   @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   userId    Int
   deviceId  Int
+  status    String
   createdAt DateTime @default(now())
 
   user   User   @relation(fields: [userId], references: [id])

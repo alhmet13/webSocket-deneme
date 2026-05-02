@@ -30,6 +30,35 @@ export type Device = $Result.DefaultSelection<Prisma.$DevicePayload>
 export type Logs = $Result.DefaultSelection<Prisma.$LogsPayload>
 
 /**
+ * Enums
+ */
+export namespace $Enums {
+  export const DeviceTypes: {
+  LED: 'LED',
+  Temperature: 'Temperature'
+};
+
+export type DeviceTypes = (typeof DeviceTypes)[keyof typeof DeviceTypes]
+
+
+export const LedValue: {
+  on: 'on',
+  off: 'off'
+};
+
+export type LedValue = (typeof LedValue)[keyof typeof LedValue]
+
+}
+
+export type DeviceTypes = $Enums.DeviceTypes
+
+export const DeviceTypes: typeof $Enums.DeviceTypes
+
+export type LedValue = $Enums.LedValue
+
+export const LedValue: typeof $Enums.LedValue
+
+/**
  * ##  Prisma Client ʲˢ
  *
  * Type-safe database client for TypeScript & Node.js
@@ -2258,17 +2287,21 @@ export namespace Prisma {
 
   export type DeviceAvgAggregateOutputType = {
     id: number | null
+    temperature: number | null
   }
 
   export type DeviceSumAggregateOutputType = {
     id: number | null
+    temperature: number | null
   }
 
   export type DeviceMinAggregateOutputType = {
     id: number | null
     uuid: string | null
     deviceName: string | null
-    deviceType: string | null
+    deviceType: $Enums.DeviceTypes | null
+    light: $Enums.LedValue | null
+    temperature: number | null
     createdAt: Date | null
   }
 
@@ -2276,7 +2309,9 @@ export namespace Prisma {
     id: number | null
     uuid: string | null
     deviceName: string | null
-    deviceType: string | null
+    deviceType: $Enums.DeviceTypes | null
+    light: $Enums.LedValue | null
+    temperature: number | null
     createdAt: Date | null
   }
 
@@ -2285,6 +2320,8 @@ export namespace Prisma {
     uuid: number
     deviceName: number
     deviceType: number
+    light: number
+    temperature: number
     createdAt: number
     _all: number
   }
@@ -2292,10 +2329,12 @@ export namespace Prisma {
 
   export type DeviceAvgAggregateInputType = {
     id?: true
+    temperature?: true
   }
 
   export type DeviceSumAggregateInputType = {
     id?: true
+    temperature?: true
   }
 
   export type DeviceMinAggregateInputType = {
@@ -2303,6 +2342,8 @@ export namespace Prisma {
     uuid?: true
     deviceName?: true
     deviceType?: true
+    light?: true
+    temperature?: true
     createdAt?: true
   }
 
@@ -2311,6 +2352,8 @@ export namespace Prisma {
     uuid?: true
     deviceName?: true
     deviceType?: true
+    light?: true
+    temperature?: true
     createdAt?: true
   }
 
@@ -2319,6 +2362,8 @@ export namespace Prisma {
     uuid?: true
     deviceName?: true
     deviceType?: true
+    light?: true
+    temperature?: true
     createdAt?: true
     _all?: true
   }
@@ -2413,7 +2458,9 @@ export namespace Prisma {
     id: number
     uuid: string
     deviceName: string
-    deviceType: string
+    deviceType: $Enums.DeviceTypes
+    light: $Enums.LedValue | null
+    temperature: number | null
     createdAt: Date
     _count: DeviceCountAggregateOutputType | null
     _avg: DeviceAvgAggregateOutputType | null
@@ -2441,6 +2488,8 @@ export namespace Prisma {
     uuid?: boolean
     deviceName?: boolean
     deviceType?: boolean
+    light?: boolean
+    temperature?: boolean
     createdAt?: boolean
     logs?: boolean | Device$logsArgs<ExtArgs>
     _count?: boolean | DeviceCountOutputTypeDefaultArgs<ExtArgs>
@@ -2451,6 +2500,8 @@ export namespace Prisma {
     uuid?: boolean
     deviceName?: boolean
     deviceType?: boolean
+    light?: boolean
+    temperature?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["device"]>
 
@@ -2459,6 +2510,8 @@ export namespace Prisma {
     uuid?: boolean
     deviceName?: boolean
     deviceType?: boolean
+    light?: boolean
+    temperature?: boolean
     createdAt?: boolean
   }, ExtArgs["result"]["device"]>
 
@@ -2467,10 +2520,12 @@ export namespace Prisma {
     uuid?: boolean
     deviceName?: boolean
     deviceType?: boolean
+    light?: boolean
+    temperature?: boolean
     createdAt?: boolean
   }
 
-  export type DeviceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "uuid" | "deviceName" | "deviceType" | "createdAt", ExtArgs["result"]["device"]>
+  export type DeviceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "uuid" | "deviceName" | "deviceType" | "light" | "temperature" | "createdAt", ExtArgs["result"]["device"]>
   export type DeviceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     logs?: boolean | Device$logsArgs<ExtArgs>
     _count?: boolean | DeviceCountOutputTypeDefaultArgs<ExtArgs>
@@ -2487,7 +2542,9 @@ export namespace Prisma {
       id: number
       uuid: string
       deviceName: string
-      deviceType: string
+      deviceType: $Enums.DeviceTypes
+      light: $Enums.LedValue | null
+      temperature: number | null
       createdAt: Date
     }, ExtArgs["result"]["device"]>
     composites: {}
@@ -2916,7 +2973,9 @@ export namespace Prisma {
     readonly id: FieldRef<"Device", 'Int'>
     readonly uuid: FieldRef<"Device", 'String'>
     readonly deviceName: FieldRef<"Device", 'String'>
-    readonly deviceType: FieldRef<"Device", 'String'>
+    readonly deviceType: FieldRef<"Device", 'DeviceTypes'>
+    readonly light: FieldRef<"Device", 'LedValue'>
+    readonly temperature: FieldRef<"Device", 'Float'>
     readonly createdAt: FieldRef<"Device", 'DateTime'>
   }
     
@@ -3382,6 +3441,7 @@ export namespace Prisma {
     uuid: string | null
     userId: number | null
     deviceId: number | null
+    status: string | null
     createdAt: Date | null
   }
 
@@ -3390,6 +3450,7 @@ export namespace Prisma {
     uuid: string | null
     userId: number | null
     deviceId: number | null
+    status: string | null
     createdAt: Date | null
   }
 
@@ -3398,6 +3459,7 @@ export namespace Prisma {
     uuid: number
     userId: number
     deviceId: number
+    status: number
     createdAt: number
     _all: number
   }
@@ -3420,6 +3482,7 @@ export namespace Prisma {
     uuid?: true
     userId?: true
     deviceId?: true
+    status?: true
     createdAt?: true
   }
 
@@ -3428,6 +3491,7 @@ export namespace Prisma {
     uuid?: true
     userId?: true
     deviceId?: true
+    status?: true
     createdAt?: true
   }
 
@@ -3436,6 +3500,7 @@ export namespace Prisma {
     uuid?: true
     userId?: true
     deviceId?: true
+    status?: true
     createdAt?: true
     _all?: true
   }
@@ -3531,6 +3596,7 @@ export namespace Prisma {
     uuid: string
     userId: number
     deviceId: number
+    status: string
     createdAt: Date
     _count: LogsCountAggregateOutputType | null
     _avg: LogsAvgAggregateOutputType | null
@@ -3558,6 +3624,7 @@ export namespace Prisma {
     uuid?: boolean
     userId?: boolean
     deviceId?: boolean
+    status?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     device?: boolean | DeviceDefaultArgs<ExtArgs>
@@ -3568,6 +3635,7 @@ export namespace Prisma {
     uuid?: boolean
     userId?: boolean
     deviceId?: boolean
+    status?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     device?: boolean | DeviceDefaultArgs<ExtArgs>
@@ -3578,6 +3646,7 @@ export namespace Prisma {
     uuid?: boolean
     userId?: boolean
     deviceId?: boolean
+    status?: boolean
     createdAt?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     device?: boolean | DeviceDefaultArgs<ExtArgs>
@@ -3588,10 +3657,11 @@ export namespace Prisma {
     uuid?: boolean
     userId?: boolean
     deviceId?: boolean
+    status?: boolean
     createdAt?: boolean
   }
 
-  export type LogsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "uuid" | "userId" | "deviceId" | "createdAt", ExtArgs["result"]["logs"]>
+  export type LogsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "uuid" | "userId" | "deviceId" | "status" | "createdAt", ExtArgs["result"]["logs"]>
   export type LogsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     device?: boolean | DeviceDefaultArgs<ExtArgs>
@@ -3616,6 +3686,7 @@ export namespace Prisma {
       uuid: string
       userId: number
       deviceId: number
+      status: string
       createdAt: Date
     }, ExtArgs["result"]["logs"]>
     composites: {}
@@ -4046,6 +4117,7 @@ export namespace Prisma {
     readonly uuid: FieldRef<"Logs", 'String'>
     readonly userId: FieldRef<"Logs", 'Int'>
     readonly deviceId: FieldRef<"Logs", 'Int'>
+    readonly status: FieldRef<"Logs", 'String'>
     readonly createdAt: FieldRef<"Logs", 'DateTime'>
   }
     
@@ -4498,6 +4570,8 @@ export namespace Prisma {
     uuid: 'uuid',
     deviceName: 'deviceName',
     deviceType: 'deviceType',
+    light: 'light',
+    temperature: 'temperature',
     createdAt: 'createdAt'
   };
 
@@ -4509,6 +4583,7 @@ export namespace Prisma {
     uuid: 'uuid',
     userId: 'userId',
     deviceId: 'deviceId',
+    status: 'status',
     createdAt: 'createdAt'
   };
 
@@ -4529,6 +4604,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -4575,6 +4658,34 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DeviceTypes'
+   */
+  export type EnumDeviceTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeviceTypes'>
+    
+
+
+  /**
+   * Reference to a field of type 'DeviceTypes[]'
+   */
+  export type ListEnumDeviceTypesFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DeviceTypes[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'LedValue'
+   */
+  export type EnumLedValueFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LedValue'>
+    
+
+
+  /**
+   * Reference to a field of type 'LedValue[]'
+   */
+  export type ListEnumLedValueFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LedValue[]'>
     
 
 
@@ -4669,7 +4780,9 @@ export namespace Prisma {
     id?: IntFilter<"Device"> | number
     uuid?: UuidFilter<"Device"> | string
     deviceName?: StringFilter<"Device"> | string
-    deviceType?: StringFilter<"Device"> | string
+    deviceType?: EnumDeviceTypesFilter<"Device"> | $Enums.DeviceTypes
+    light?: EnumLedValueNullableFilter<"Device"> | $Enums.LedValue | null
+    temperature?: FloatNullableFilter<"Device"> | number | null
     createdAt?: DateTimeFilter<"Device"> | Date | string
     logs?: LogsListRelationFilter
   }
@@ -4679,6 +4792,8 @@ export namespace Prisma {
     uuid?: SortOrder
     deviceName?: SortOrder
     deviceType?: SortOrder
+    light?: SortOrderInput | SortOrder
+    temperature?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     logs?: LogsOrderByRelationAggregateInput
   }
@@ -4686,20 +4801,24 @@ export namespace Prisma {
   export type DeviceWhereUniqueInput = Prisma.AtLeast<{
     id?: number
     uuid?: string
+    deviceName?: string
     AND?: DeviceWhereInput | DeviceWhereInput[]
     OR?: DeviceWhereInput[]
     NOT?: DeviceWhereInput | DeviceWhereInput[]
-    deviceName?: StringFilter<"Device"> | string
-    deviceType?: StringFilter<"Device"> | string
+    deviceType?: EnumDeviceTypesFilter<"Device"> | $Enums.DeviceTypes
+    light?: EnumLedValueNullableFilter<"Device"> | $Enums.LedValue | null
+    temperature?: FloatNullableFilter<"Device"> | number | null
     createdAt?: DateTimeFilter<"Device"> | Date | string
     logs?: LogsListRelationFilter
-  }, "id" | "uuid">
+  }, "id" | "uuid" | "deviceName">
 
   export type DeviceOrderByWithAggregationInput = {
     id?: SortOrder
     uuid?: SortOrder
     deviceName?: SortOrder
     deviceType?: SortOrder
+    light?: SortOrderInput | SortOrder
+    temperature?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     _count?: DeviceCountOrderByAggregateInput
     _avg?: DeviceAvgOrderByAggregateInput
@@ -4715,7 +4834,9 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Device"> | number
     uuid?: UuidWithAggregatesFilter<"Device"> | string
     deviceName?: StringWithAggregatesFilter<"Device"> | string
-    deviceType?: StringWithAggregatesFilter<"Device"> | string
+    deviceType?: EnumDeviceTypesWithAggregatesFilter<"Device"> | $Enums.DeviceTypes
+    light?: EnumLedValueNullableWithAggregatesFilter<"Device"> | $Enums.LedValue | null
+    temperature?: FloatNullableWithAggregatesFilter<"Device"> | number | null
     createdAt?: DateTimeWithAggregatesFilter<"Device"> | Date | string
   }
 
@@ -4727,6 +4848,7 @@ export namespace Prisma {
     uuid?: UuidFilter<"Logs"> | string
     userId?: IntFilter<"Logs"> | number
     deviceId?: IntFilter<"Logs"> | number
+    status?: StringFilter<"Logs"> | string
     createdAt?: DateTimeFilter<"Logs"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     device?: XOR<DeviceScalarRelationFilter, DeviceWhereInput>
@@ -4737,6 +4859,7 @@ export namespace Prisma {
     uuid?: SortOrder
     userId?: SortOrder
     deviceId?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     user?: UserOrderByWithRelationInput
     device?: DeviceOrderByWithRelationInput
@@ -4750,6 +4873,7 @@ export namespace Prisma {
     NOT?: LogsWhereInput | LogsWhereInput[]
     userId?: IntFilter<"Logs"> | number
     deviceId?: IntFilter<"Logs"> | number
+    status?: StringFilter<"Logs"> | string
     createdAt?: DateTimeFilter<"Logs"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     device?: XOR<DeviceScalarRelationFilter, DeviceWhereInput>
@@ -4760,6 +4884,7 @@ export namespace Prisma {
     uuid?: SortOrder
     userId?: SortOrder
     deviceId?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
     _count?: LogsCountOrderByAggregateInput
     _avg?: LogsAvgOrderByAggregateInput
@@ -4776,6 +4901,7 @@ export namespace Prisma {
     uuid?: UuidWithAggregatesFilter<"Logs"> | string
     userId?: IntWithAggregatesFilter<"Logs"> | number
     deviceId?: IntWithAggregatesFilter<"Logs"> | number
+    status?: StringWithAggregatesFilter<"Logs"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Logs"> | Date | string
   }
 
@@ -4853,7 +4979,9 @@ export namespace Prisma {
   export type DeviceCreateInput = {
     uuid?: string
     deviceName: string
-    deviceType: string
+    deviceType: $Enums.DeviceTypes
+    light?: $Enums.LedValue | null
+    temperature?: number | null
     createdAt?: Date | string
     logs?: LogsCreateNestedManyWithoutDeviceInput
   }
@@ -4862,7 +4990,9 @@ export namespace Prisma {
     id?: number
     uuid?: string
     deviceName: string
-    deviceType: string
+    deviceType: $Enums.DeviceTypes
+    light?: $Enums.LedValue | null
+    temperature?: number | null
     createdAt?: Date | string
     logs?: LogsUncheckedCreateNestedManyWithoutDeviceInput
   }
@@ -4870,7 +5000,9 @@ export namespace Prisma {
   export type DeviceUpdateInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     deviceName?: StringFieldUpdateOperationsInput | string
-    deviceType?: StringFieldUpdateOperationsInput | string
+    deviceType?: EnumDeviceTypesFieldUpdateOperationsInput | $Enums.DeviceTypes
+    light?: NullableEnumLedValueFieldUpdateOperationsInput | $Enums.LedValue | null
+    temperature?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logs?: LogsUpdateManyWithoutDeviceNestedInput
   }
@@ -4879,7 +5011,9 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     uuid?: StringFieldUpdateOperationsInput | string
     deviceName?: StringFieldUpdateOperationsInput | string
-    deviceType?: StringFieldUpdateOperationsInput | string
+    deviceType?: EnumDeviceTypesFieldUpdateOperationsInput | $Enums.DeviceTypes
+    light?: NullableEnumLedValueFieldUpdateOperationsInput | $Enums.LedValue | null
+    temperature?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     logs?: LogsUncheckedUpdateManyWithoutDeviceNestedInput
   }
@@ -4888,14 +5022,18 @@ export namespace Prisma {
     id?: number
     uuid?: string
     deviceName: string
-    deviceType: string
+    deviceType: $Enums.DeviceTypes
+    light?: $Enums.LedValue | null
+    temperature?: number | null
     createdAt?: Date | string
   }
 
   export type DeviceUpdateManyMutationInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     deviceName?: StringFieldUpdateOperationsInput | string
-    deviceType?: StringFieldUpdateOperationsInput | string
+    deviceType?: EnumDeviceTypesFieldUpdateOperationsInput | $Enums.DeviceTypes
+    light?: NullableEnumLedValueFieldUpdateOperationsInput | $Enums.LedValue | null
+    temperature?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -4903,12 +5041,15 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     uuid?: StringFieldUpdateOperationsInput | string
     deviceName?: StringFieldUpdateOperationsInput | string
-    deviceType?: StringFieldUpdateOperationsInput | string
+    deviceType?: EnumDeviceTypesFieldUpdateOperationsInput | $Enums.DeviceTypes
+    light?: NullableEnumLedValueFieldUpdateOperationsInput | $Enums.LedValue | null
+    temperature?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LogsCreateInput = {
     uuid?: string
+    status: string
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutLogsInput
     device: DeviceCreateNestedOneWithoutLogsInput
@@ -4919,11 +5060,13 @@ export namespace Prisma {
     uuid?: string
     userId: number
     deviceId: number
+    status: string
     createdAt?: Date | string
   }
 
   export type LogsUpdateInput = {
     uuid?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutLogsNestedInput
     device?: DeviceUpdateOneRequiredWithoutLogsNestedInput
@@ -4934,6 +5077,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
     deviceId?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -4942,11 +5086,13 @@ export namespace Prisma {
     uuid?: string
     userId: number
     deviceId: number
+    status: string
     createdAt?: Date | string
   }
 
   export type LogsUpdateManyMutationInput = {
     uuid?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -4955,6 +5101,7 @@ export namespace Prisma {
     uuid?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
     deviceId?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5118,16 +5265,49 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type EnumDeviceTypesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DeviceTypes | EnumDeviceTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.DeviceTypes[] | ListEnumDeviceTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DeviceTypes[] | ListEnumDeviceTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumDeviceTypesFilter<$PrismaModel> | $Enums.DeviceTypes
+  }
+
+  export type EnumLedValueNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.LedValue | EnumLedValueFieldRefInput<$PrismaModel> | null
+    in?: $Enums.LedValue[] | ListEnumLedValueFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.LedValue[] | ListEnumLedValueFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumLedValueNullableFilter<$PrismaModel> | $Enums.LedValue | null
+  }
+
+  export type FloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
   export type DeviceCountOrderByAggregateInput = {
     id?: SortOrder
     uuid?: SortOrder
     deviceName?: SortOrder
     deviceType?: SortOrder
+    light?: SortOrder
+    temperature?: SortOrder
     createdAt?: SortOrder
   }
 
   export type DeviceAvgOrderByAggregateInput = {
     id?: SortOrder
+    temperature?: SortOrder
   }
 
   export type DeviceMaxOrderByAggregateInput = {
@@ -5135,6 +5315,8 @@ export namespace Prisma {
     uuid?: SortOrder
     deviceName?: SortOrder
     deviceType?: SortOrder
+    light?: SortOrder
+    temperature?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -5143,11 +5325,50 @@ export namespace Prisma {
     uuid?: SortOrder
     deviceName?: SortOrder
     deviceType?: SortOrder
+    light?: SortOrder
+    temperature?: SortOrder
     createdAt?: SortOrder
   }
 
   export type DeviceSumOrderByAggregateInput = {
     id?: SortOrder
+    temperature?: SortOrder
+  }
+
+  export type EnumDeviceTypesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DeviceTypes | EnumDeviceTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.DeviceTypes[] | ListEnumDeviceTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DeviceTypes[] | ListEnumDeviceTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumDeviceTypesWithAggregatesFilter<$PrismaModel> | $Enums.DeviceTypes
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDeviceTypesFilter<$PrismaModel>
+    _max?: NestedEnumDeviceTypesFilter<$PrismaModel>
+  }
+
+  export type EnumLedValueNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.LedValue | EnumLedValueFieldRefInput<$PrismaModel> | null
+    in?: $Enums.LedValue[] | ListEnumLedValueFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.LedValue[] | ListEnumLedValueFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumLedValueNullableWithAggregatesFilter<$PrismaModel> | $Enums.LedValue | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumLedValueNullableFilter<$PrismaModel>
+    _max?: NestedEnumLedValueNullableFilter<$PrismaModel>
+  }
+
+  export type FloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
   }
 
   export type UserScalarRelationFilter = {
@@ -5165,6 +5386,7 @@ export namespace Prisma {
     uuid?: SortOrder
     userId?: SortOrder
     deviceId?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -5179,6 +5401,7 @@ export namespace Prisma {
     uuid?: SortOrder
     userId?: SortOrder
     deviceId?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -5187,6 +5410,7 @@ export namespace Prisma {
     uuid?: SortOrder
     userId?: SortOrder
     deviceId?: SortOrder
+    status?: SortOrder
     createdAt?: SortOrder
   }
 
@@ -5266,6 +5490,22 @@ export namespace Prisma {
     connectOrCreate?: LogsCreateOrConnectWithoutDeviceInput | LogsCreateOrConnectWithoutDeviceInput[]
     createMany?: LogsCreateManyDeviceInputEnvelope
     connect?: LogsWhereUniqueInput | LogsWhereUniqueInput[]
+  }
+
+  export type EnumDeviceTypesFieldUpdateOperationsInput = {
+    set?: $Enums.DeviceTypes
+  }
+
+  export type NullableEnumLedValueFieldUpdateOperationsInput = {
+    set?: $Enums.LedValue | null
+  }
+
+  export type NullableFloatFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type LogsUpdateManyWithoutDeviceNestedInput = {
@@ -5443,8 +5683,81 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedEnumDeviceTypesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DeviceTypes | EnumDeviceTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.DeviceTypes[] | ListEnumDeviceTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DeviceTypes[] | ListEnumDeviceTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumDeviceTypesFilter<$PrismaModel> | $Enums.DeviceTypes
+  }
+
+  export type NestedEnumLedValueNullableFilter<$PrismaModel = never> = {
+    equals?: $Enums.LedValue | EnumLedValueFieldRefInput<$PrismaModel> | null
+    in?: $Enums.LedValue[] | ListEnumLedValueFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.LedValue[] | ListEnumLedValueFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumLedValueNullableFilter<$PrismaModel> | $Enums.LedValue | null
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedEnumDeviceTypesWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.DeviceTypes | EnumDeviceTypesFieldRefInput<$PrismaModel>
+    in?: $Enums.DeviceTypes[] | ListEnumDeviceTypesFieldRefInput<$PrismaModel>
+    notIn?: $Enums.DeviceTypes[] | ListEnumDeviceTypesFieldRefInput<$PrismaModel>
+    not?: NestedEnumDeviceTypesWithAggregatesFilter<$PrismaModel> | $Enums.DeviceTypes
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumDeviceTypesFilter<$PrismaModel>
+    _max?: NestedEnumDeviceTypesFilter<$PrismaModel>
+  }
+
+  export type NestedEnumLedValueNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.LedValue | EnumLedValueFieldRefInput<$PrismaModel> | null
+    in?: $Enums.LedValue[] | ListEnumLedValueFieldRefInput<$PrismaModel> | null
+    notIn?: $Enums.LedValue[] | ListEnumLedValueFieldRefInput<$PrismaModel> | null
+    not?: NestedEnumLedValueNullableWithAggregatesFilter<$PrismaModel> | $Enums.LedValue | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedEnumLedValueNullableFilter<$PrismaModel>
+    _max?: NestedEnumLedValueNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedFloatNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel> | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedFloatNullableFilter<$PrismaModel>
+    _min?: NestedFloatNullableFilter<$PrismaModel>
+    _max?: NestedFloatNullableFilter<$PrismaModel>
+  }
+
   export type LogsCreateWithoutUserInput = {
     uuid?: string
+    status: string
     createdAt?: Date | string
     device: DeviceCreateNestedOneWithoutLogsInput
   }
@@ -5453,6 +5766,7 @@ export namespace Prisma {
     id?: number
     uuid?: string
     deviceId: number
+    status: string
     createdAt?: Date | string
   }
 
@@ -5490,11 +5804,13 @@ export namespace Prisma {
     uuid?: UuidFilter<"Logs"> | string
     userId?: IntFilter<"Logs"> | number
     deviceId?: IntFilter<"Logs"> | number
+    status?: StringFilter<"Logs"> | string
     createdAt?: DateTimeFilter<"Logs"> | Date | string
   }
 
   export type LogsCreateWithoutDeviceInput = {
     uuid?: string
+    status: string
     createdAt?: Date | string
     user: UserCreateNestedOneWithoutLogsInput
   }
@@ -5503,6 +5819,7 @@ export namespace Prisma {
     id?: number
     uuid?: string
     userId: number
+    status: string
     createdAt?: Date | string
   }
 
@@ -5559,7 +5876,9 @@ export namespace Prisma {
   export type DeviceCreateWithoutLogsInput = {
     uuid?: string
     deviceName: string
-    deviceType: string
+    deviceType: $Enums.DeviceTypes
+    light?: $Enums.LedValue | null
+    temperature?: number | null
     createdAt?: Date | string
   }
 
@@ -5567,7 +5886,9 @@ export namespace Prisma {
     id?: number
     uuid?: string
     deviceName: string
-    deviceType: string
+    deviceType: $Enums.DeviceTypes
+    light?: $Enums.LedValue | null
+    temperature?: number | null
     createdAt?: Date | string
   }
 
@@ -5620,7 +5941,9 @@ export namespace Prisma {
   export type DeviceUpdateWithoutLogsInput = {
     uuid?: StringFieldUpdateOperationsInput | string
     deviceName?: StringFieldUpdateOperationsInput | string
-    deviceType?: StringFieldUpdateOperationsInput | string
+    deviceType?: EnumDeviceTypesFieldUpdateOperationsInput | $Enums.DeviceTypes
+    light?: NullableEnumLedValueFieldUpdateOperationsInput | $Enums.LedValue | null
+    temperature?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5628,7 +5951,9 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     uuid?: StringFieldUpdateOperationsInput | string
     deviceName?: StringFieldUpdateOperationsInput | string
-    deviceType?: StringFieldUpdateOperationsInput | string
+    deviceType?: EnumDeviceTypesFieldUpdateOperationsInput | $Enums.DeviceTypes
+    light?: NullableEnumLedValueFieldUpdateOperationsInput | $Enums.LedValue | null
+    temperature?: NullableFloatFieldUpdateOperationsInput | number | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5636,11 +5961,13 @@ export namespace Prisma {
     id?: number
     uuid?: string
     deviceId: number
+    status: string
     createdAt?: Date | string
   }
 
   export type LogsUpdateWithoutUserInput = {
     uuid?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     device?: DeviceUpdateOneRequiredWithoutLogsNestedInput
   }
@@ -5649,6 +5976,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     uuid?: StringFieldUpdateOperationsInput | string
     deviceId?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5656,6 +5984,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     uuid?: StringFieldUpdateOperationsInput | string
     deviceId?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5663,11 +5992,13 @@ export namespace Prisma {
     id?: number
     uuid?: string
     userId: number
+    status: string
     createdAt?: Date | string
   }
 
   export type LogsUpdateWithoutDeviceInput = {
     uuid?: StringFieldUpdateOperationsInput | string
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutLogsNestedInput
   }
@@ -5676,6 +6007,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     uuid?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -5683,6 +6015,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     uuid?: StringFieldUpdateOperationsInput | string
     userId?: IntFieldUpdateOperationsInput | number
+    status?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

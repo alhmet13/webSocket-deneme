@@ -135,6 +135,8 @@ exports.Prisma.DeviceScalarFieldEnum = {
   uuid: 'uuid',
   deviceName: 'deviceName',
   deviceType: 'deviceType',
+  light: 'light',
+  temperature: 'temperature',
   createdAt: 'createdAt'
 };
 
@@ -143,6 +145,7 @@ exports.Prisma.LogsScalarFieldEnum = {
   uuid: 'uuid',
   userId: 'userId',
   deviceId: 'deviceId',
+  status: 'status',
   createdAt: 'createdAt'
 };
 
@@ -156,6 +159,19 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.DeviceTypes = exports.$Enums.DeviceTypes = {
+  LED: 'LED',
+  Temperature: 'Temperature'
+};
+
+exports.LedValue = exports.$Enums.LedValue = {
+  on: 'on',
+  off: 'off'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',
