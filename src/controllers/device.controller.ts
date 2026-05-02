@@ -3,7 +3,7 @@ import { HTTP_STATUS_CODE } from '../helpers';
 import { createDevice, findDevice } from '../services';
 import { deviceSchema, DeviceInput } from '../schemas';
 import { sendCommand } from '../managers';
-import { DeviceTypes, LedValue } from '../generated/prisma';
+import { DeviceTypes } from '../generated/prisma';
 
 const deviceCreateHandler = async (request: FastifyRequest<{ Body: DeviceInput }>, reply: FastifyReply): Promise<any> => {
   const { deviceName, deviceType } = deviceSchema.parse(request.body);
@@ -26,15 +26,24 @@ const deviceCreateHandler = async (request: FastifyRequest<{ Body: DeviceInput }
 };
 
 const runDeviceHandler = async (request: FastifyRequest<{ Body: DeviceInput }>, reply: FastifyReply): Promise<any> => {
+  const { id } = request.user!;
+  const userId = Number(id);
   const { deviceName, deviceType, light } = deviceSchema.parse(request.body);
 
   try {
+    const device = await findDevice(deviceName);
+    if (!device) {
+      return reply.status(HTTP_STATUS_CODE.BAD_REQUEST).send({ message: 'Belirtmiş olduğunuz cihaz bulunamadı.' });
+    }
+
+    const deviceId = device.id;
+
     if (deviceType === 'LED') {
       if (!light) {
         return reply.status(HTTP_STATUS_CODE.BAD_REQUEST).send({ message: 'LED durumu belirtilmedi!' });
       }
 
-      await sendCommand(deviceName, light);
+      await sendCommand(deviceName, light, userId);
     }
 
     //* Yarın temperature eklediğinde buraya sadece bir 'else if' gelecek:

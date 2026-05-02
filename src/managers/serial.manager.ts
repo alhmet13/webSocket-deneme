@@ -1,5 +1,6 @@
 import { SerialPort } from 'serialport'; // Yeni ekledik
-import { findUserByRfid_ID } from '../services';
+import { findUserByRfid_ID, createLog, findDevice } from '../services';
+import { number } from 'zod/v4';
 
 // Portu burada BİR KEZ oluşturuyoruz
 export const sharedPort = new SerialPort({
@@ -7,13 +8,22 @@ export const sharedPort = new SerialPort({
   baudRate: 9600,
 });
 
-const sendCommand = async (deviceName: string, command: string) => {
+const sendCommand = async (deviceName: string, command: string, userId: number) => {
   if (!sharedPort.isOpen) {
     throw new Error('Seri port kapalı! Komut gönderilemedi.');
   }
 
   // Protokol: "CihazAdı:Komut\n" (Tek bir paket)
   const packet = `${deviceName}:${command}\n`; //?Böylece hem kodun spagetti olmamasını sağladık ve Arduino tarafının da kafasının karışmamasını sağladık.
+
+  const device = await findDevice(deviceName);
+  if (!device) {
+    throw new Error('Cihaz bulunamadı');
+  }
+  const deviceId = device.id;
+  const logStatus = `${deviceName} is ${command}`;
+
+  await createLog({ userId, deviceId, status: logStatus });
 
   return new Promise((resolve, reject) => {
     sharedPort.write(packet, (err) => {
@@ -23,14 +33,26 @@ const sendCommand = async (deviceName: string, command: string) => {
   });
 };
 
+let sayac = 2;
+
 const handleAccessRequest = async (rfid_ID: string) => {
   const user = await findUserByRfid_ID(rfid_ID);
+  const userId = user!.id;
 
   if (user) {
-    await sendCommand('LED-001', 'on');
-    console.log(`${user.name} için izin verildi.`);
-    // WebSocket'e gidecek paketi dönüyoruz
-    return { status: 'authorized', name: user.name, rfid_ID, time: new Date() };
+    if (sayac % 2 == 0) {
+      await sendCommand('LED-001', 'on', userId);
+      console.log(`${user.name} için izin verildi.`);
+      sayac++;
+      // WebSocket'e gidecek paketi dönüyoruz
+      return { status: 'authorized', name: user.name, rfid_ID, time: new Date() };
+    } else {
+      await sendCommand('LED-001', 'off', userId);
+      console.log(`${user.name} için izin verildi.`);
+      sayac++;
+      // WebSocket'e gidecek paketi dönüyoruz
+      return { status: 'authorized', name: user.name, rfid_ID, time: new Date() };
+    }
   } else {
     console.log('Yetkisiz kart: ' + rfid_ID);
     // Yetkisiz deneme paketini dönüyoruz

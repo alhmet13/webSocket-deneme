@@ -4,7 +4,8 @@
 // Kullanıcı tanımlı pinler
 #define RST_PIN 8
 #define SS_PIN 9
-#define LED_PIN 7
+#define FirstLED 7
+#define SecondLED 6
 
 // MFRC522 örneğini oluşturuyoruz
 MFRC522 mfrc522(SS_PIN, RST_PIN);
@@ -18,8 +19,10 @@ void setup()
   SPI.begin();        // SPI barasını başlat
   mfrc522.PCD_Init(); // RFID okuyucuyu başlat
 
-  pinMode(LED_PIN, OUTPUT);
-  digitalWrite(LED_PIN, LOW); // Başlangıçta LED kapalı
+  pinMode(FirstLED, OUTPUT);
+  pinMode(SecondLED,OUTPUT);
+  digitalWrite(FirstLED, LOW); // Başlangıçta LED kapalı
+  digitalWrite(SecondLED, LOW); // Başlangıçta LED kapalı
 }
 
 void loop()
@@ -39,11 +42,17 @@ void loop()
       // Sadece bu cihaza ait komutları işle
       if (deviceName == "LED-001") {
         if (command == "on") {
-          digitalWrite(LED_PIN, HIGH);
-          delay(2000); 
-          digitalWrite(LED_PIN, LOW);
+          digitalWrite(FirstLED, HIGH);
         } else if (command == "off") {
-          digitalWrite(LED_PIN, LOW);
+          digitalWrite(FirstLED, LOW);
+        }
+      }
+
+      if (deviceName == "LED-002") {
+        if (command == "on") {
+          digitalWrite(SecondLED, HIGH);
+        } else if (command == "off") {
+          digitalWrite(SecondLED, LOW);
         }
       }
     }
