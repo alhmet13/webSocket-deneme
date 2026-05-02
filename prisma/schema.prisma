@@ -17,6 +17,12 @@ enum LedValue {
   off
 }
 
+enum Roles {
+  admin
+  operator
+  user
+}
+
 model User {
   id        Int      @id @default(autoincrement())
   uuid      String   @unique @default(dbgenerated("gen_random_uuid()")) @db.Uuid
@@ -24,6 +30,7 @@ model User {
   email     String   @unique
   password  String   @db.VarChar(250)
   rfid_ID   String   @unique
+  role      Roles
   createdAt DateTime @default(now())
   logs      Logs[]
 }

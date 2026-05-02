@@ -127,6 +127,7 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   password: 'password',
   rfid_ID: 'rfid_ID',
+  role: 'role',
   createdAt: 'createdAt'
 };
 
@@ -163,6 +164,12 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.Roles = exports.$Enums.Roles = {
+  admin: 'admin',
+  operator: 'operator',
+  user: 'user'
+};
+
 exports.DeviceTypes = exports.$Enums.DeviceTypes = {
   LED: 'LED',
   Temperature: 'Temperature'
